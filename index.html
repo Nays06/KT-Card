@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card img{
+            margin-left: 150px;
+            position: absolute;
+        }
+
+        .numCard{
+            margin-left: 200px;
+            color: white;
+            position: relative;
+            margin-top: 157px;
+            font-size: 44px;
+            height: 51px;
+        }
+
+        .userCard{
+            position: relative;
+            color: white;
+            margin-left: 180px;
+            margin-top: 30px;
+            font-size: 25px;
+            height: 20px;
+        }
+
+        .inp{
+            width: 250px;
+            height: 300px;
+            background-color: rgb(243, 104, 104);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inp input{
+            border: 1px solid black;
+            width: 200px;
+            height: 22px;
+            border-radius: 5px;
+        }
+
+        .inputBox select{
+            border: 1px solid black;
+            width: 200px;
+            height: 22px;
+            border-radius: 5px;
+        }
+
+        form{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .dateCard{
+            position: relative;
+            margin-left: 370px;
+            bottom: 45px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .ima img{
+            width: 110px;
+            position: relative;
+            bottom: 50px;
+            left: 340px;
+        }
+
+        .vse{
+            width: 1000px;
+            height: 300px;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="vse">
+        <div class="inp">
+            <form action="">
+                <div class="inputBox">
+                    <select id="nazva">
+                        <option value="bankName" selected disabled>Название банка</option>
+                        <option value="sber">SberBank</option>
+                    </select>
+                </div>
+                <div class="inputBox">
+                    <select id="nazva1">
+                        <option value="typePS" selected disabled>Тип платежной системы</option>
+                        <option value="visa">Visa</option>
+                        <option value="mir">Mir</option>
+                    </select>
+                </div>
+                <input type="text" id="inpu3" placeholder="Номер карты" maxlength="19">
+                <input type="text" id="inpu4" placeholder="Имя держателя карты" maxlength="25">
+                <input type="text" id="inpu5" placeholder="Месяц и год окончания карты" maxlength="5">
+                <input type="submit" id="sub">
+            </form>
+        </div>
+
+        <div class="card">
+            <img src="img/msg-1001908481033-4193.jpg" width="480px">
+            <div class="numCard"></div>
+            <div class="userCard"></div>
+            <div class="dateCard"></div>
+            <div class="ima">
+                <img src="" id="soro">
+            </div>
+        </div>
+    </div>
+
+
+    <table border="1px" id="ta" style="margin-top: 40px;">
+        <tr>
+            <td>Название банка</td>
+            <td>Тип платежной системы</td>
+            <td>Номер карты</td>
+            <td>Имя держателя карты</td>
+            <td>Месяц и год окончания карты</td>
+        </tr>
+    </table>
+
+    <script>
+        document.querySelector('#inpu3').oninput = () =>{
+            document.querySelector('.numCard').innerHTML = document.querySelector('#inpu3').value;
+        }
+
+        document.querySelector('#inpu5').oninput = () =>{
+            document.querySelector('.dateCard').innerHTML = document.querySelector('#inpu5').value;
+        }
+
+        document.querySelector('#inpu3').addEventListener('input', function() {
+            let cardNumber = this.value.replace(/\s/g, '')
+            let formattedCardNumber = cardNumber.replace(/(\d{4})/g, '$1 ').trim()
+            this.value = formattedCardNumber
+        });
+
+        document.querySelector('#inpu5').addEventListener('input', function() {
+            let cardNumber = this.value.replace(/\D/g, '')
+            let formattedCardNumber = cardNumber.replace(/(\d{2})(?=\d)/g, '$1/')
+            this.value = formattedCardNumber
+        });
+
+        document.querySelector("#inpu4").oninput = ()=>{
+            document.querySelector(".userCard").innerHTML = document.querySelector("#inpu4").value.toUpperCase()
+        }
+
+        document.querySelector("#nazva1").oninput = ()=>{
+            document.querySelector("#soro").src = `img/${document.querySelector("#nazva1").value}.png`
+        }
+
+        const submitButton = document.getElementById('sub');
+        submitButton.addEventListener('click', function(e) {
+            e.preventDefault()
+        
+            const tableBody = document.querySelector('table tbody');
+            const newRow = tableBody.insertRow();
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            cell1.textContent = nazva.value;
+            cell2.textContent = nazva1.value;
+            cell3.textContent = inpu3.value;
+            cell4.textContent = inpu4.value;
+            cell5.textContent = inpu5.value;
+        });
+    </script>
+</body>
+</html>
